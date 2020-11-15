@@ -1,11 +1,16 @@
 using System;
+using System.Text.Json.Serialization;
 using Newtonsoft.Json.Linq;
 
 namespace JsonMe.DevConsole
 {
     public class TestPoco
     {
+        [JsonPropertyName("id")]
         public int Id { get; set; }
+
+        [JsonPropertyName("eventData")]
+        [JsonConverter(typeof(JObjectConverter))]
         public JObject EventData { get; set; }
         
         public TestPoco(int id, JObject eventData)

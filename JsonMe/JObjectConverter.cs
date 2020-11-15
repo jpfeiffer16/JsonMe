@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Newtonsoft.Json.Linq;
 
 namespace JsonMe
 {
-    public class JObjectConverter : System.Text.Json.Serialization.JsonConverter<JObject>
+    public class JObjectConverter : JsonConverter<JObject>
     {
-        public override bool CanConvert(Type typeToConvert)
-        {
-            return typeToConvert == typeof(JObject);
-        }
-
         public override JObject Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            // throw new NotImplementedException();
-            var jsonElement = JsonDocument.ParseValue(ref reader).RootElement.ToString();
-            return JObject.Parse(jsonElement);
+            if (reader.TokenType != JsonTokenType.StartObject)
+            {
+                throw new JsonException("Expectd StartObject token for JObjectConverter");
+            }
+
+            var jObject = JObject.Parse(JsonDocument.ParseValue(ref reader).RootElement.GetRawText());
+            return jObject;
+
         }
 
         public override void Write(Utf8JsonWriter writer, JObject value, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
-            // JsonSerializer.
-            // writer.Write
+            var jsonDocument = JsonDocument.Parse(value.ToString());
+            jsonDocument.WriteTo(writer);
         }
     }
 }

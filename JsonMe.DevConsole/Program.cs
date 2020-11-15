@@ -16,7 +16,7 @@ namespace JsonMe.DevConsole
             // var testObject = new TestPoco(123, testEventData);
             // JsonSerializer.Serialize(testObject, serializerOptions);
 
-            var result = JsonSerializer.Deserialize<TestListPoco>(@"
+            var enumerableResult = JsonSerializer.Deserialize<TestListPoco>(@"
 {
     ""itemTypes"": [
         ""Number"",
@@ -24,13 +24,28 @@ namespace JsonMe.DevConsole
     ]
 }
                     ");
-            foreach (var item in result.ItemTypes)
+            foreach (var item in enumerableResult.ItemTypes)
             {
                 Console.WriteLine(item);
             }
 
-            var text = JsonSerializer.Serialize(result);
-            Console.WriteLine(text);
+            var listText = JsonSerializer.Serialize(enumerableResult);
+            Console.WriteLine(listText);
+
+            var jObjectResult = JsonSerializer.Deserialize<TestPoco>(@"
+{
+    ""id"": 123,
+    ""eventData"": {
+        ""eventType"": ""test""
+    }
+}
+                    ");
+
+            Console.WriteLine(jObjectResult.EventData.Count);
+
+            var jObjectText = JsonSerializer.Serialize(jObjectResult);
+
+            Console.WriteLine(jObjectText);
         }
     }
 }

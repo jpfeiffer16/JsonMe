@@ -17,6 +17,11 @@ namespace JsonMe
 
         public override IEnumerable<TItem> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
+            if (reader.TokenType != JsonTokenType.StartArray)
+            {
+                throw new JsonException("Expectd a StartArray token for EnumerableConverter");
+            }
+
             var items = new List<TItem>();
 
             while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
