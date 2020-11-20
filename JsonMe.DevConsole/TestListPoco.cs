@@ -50,6 +50,7 @@ namespace JsonMe.DevConsole
         /// <value>
         /// The items.
         /// </value>
+        [JsonPropertyName("items")]
         public IEnumerable<TestItem> Items { get; set; }
     }
 }
