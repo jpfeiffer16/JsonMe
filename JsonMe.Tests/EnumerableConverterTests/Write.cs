@@ -35,7 +35,7 @@ namespace JsonMe.Tests.EnumerableConverterTests
         [Test]
         public void ResultIsCorrect()
         {
-            Assert.That(_result, Is.EqualTo(@"[""Unknown"",""Address""]"));
+            Assert.That(_result, Is.EqualTo("[\"Unknown\",\"Address\"]"));
         }
     }
 }
