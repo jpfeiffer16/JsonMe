@@ -37,7 +37,11 @@ namespace JsonMe.DevConsole
     ""id"": 123,
     ""eventData"": {
         ""eventType"": ""test""
-    }
+    },
+    ""events"": [
+        ""inserted"",
+        ""updated""
+    ]
 }
                     ");
 

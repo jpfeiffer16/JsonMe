@@ -12,6 +12,10 @@ namespace JsonMe.DevConsole
         [JsonPropertyName("eventData")]
         [JsonConverter(typeof(JObjectConverter))]
         public JObject EventData { get; set; }
+
+        [JsonPropertyName("events")]
+        [JsonConverter(typeof(JArrayConverter))]
+        public JArray Events { get; set; }
         
         public TestPoco(int id, JObject eventData)
         {
